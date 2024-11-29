@@ -16,10 +16,8 @@ def read_data_from_csv(filename):
 def calculate_department_score(threat_scores):
     return np.mean(threat_scores)
 
-def calculate_aggregated_score(department_scores, importance_weights):
-    weighted_sum = sum(score * weight for score, weight in zip(department_scores, importance_weights))
-    total_weight = sum(importance_weights)
-    return weighted_sum / total_weight if total_weight else 0
+def calculate_aggregated_score_without_normalization(department_scores, importance_weights):
+    return sum(score * weight for score, weight in zip(department_scores, importance_weights))
 
 if __name__ == '__main__':
     # Parameters
@@ -32,8 +30,8 @@ if __name__ == '__main__':
     # Calculate department scores
     department_scores = [calculate_department_score(scores) for scores in department_data.values()]
 
-    # Calculate aggregated score
-    aggregated_score = calculate_aggregated_score(department_scores, importance_weights)
+    # Calculate aggregated score without normalizing weights
+    aggregated_score = calculate_aggregated_score_without_normalization(department_scores, importance_weights)
 
     # Output results
     print("Department Scores:", department_scores)
